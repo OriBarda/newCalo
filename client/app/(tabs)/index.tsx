@@ -62,25 +62,25 @@ export default function Dashboard() {
           <View style={styles.statsGrid}>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>
-                {globalStats.generalStats.averageCaloriesPerMeal}
+                {globalStats.generalStats?.averageCaloriesPerMeal || 0}
               </Text>
               <Text style={styles.statLabel}>Avg Calories/Meal</Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>
-                {globalStats.generalStats.averageProteinPerMeal}g
+                {globalStats.generalStats?.averageProteinPerMeal || 0}g
               </Text>
               <Text style={styles.statLabel}>Avg Protein/Meal</Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>
-                {globalStats.generalStats.mostCommonMealTime}
+                {globalStats.generalStats?.mostCommonMealTime || "12:00"}
               </Text>
               <Text style={styles.statLabel}>Peak Meal Time</Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>
-                {globalStats.generalStats.averageMealsPerDay}
+                {globalStats.generalStats?.averageMealsPerDay || 0}
               </Text>
               <Text style={styles.statLabel}>Meals/Day</Text>
             </View>
@@ -94,19 +94,19 @@ export default function Dashboard() {
             <View style={styles.insightItem}>
               <Ionicons name="fitness" size={16} color="#4CAF50" />
               <Text style={styles.insightText}>
-                {globalStats.healthInsights.proteinAdequacy}
+                {globalStats.healthInsights?.proteinAdequacy || "No data available"}
               </Text>
             </View>
             <View style={styles.insightItem}>
               <Ionicons name="restaurant" size={16} color="#FF9800" />
               <Text style={styles.insightText}>
-                {globalStats.healthInsights.calorieDistribution}
+                {globalStats.healthInsights?.calorieDistribution || "No data available"}
               </Text>
             </View>
             <View style={styles.insightItem}>
               <Ionicons name="leaf" size={16} color="#8BC34A" />
               <Text style={styles.insightText}>
-                {globalStats.healthInsights.fiberIntake}
+                {globalStats.healthInsights?.fiberIntake || "No data available"}
               </Text>
             </View>
           </View>
@@ -116,45 +116,14 @@ export default function Dashboard() {
         <View style={styles.statsCard}>
           <Text style={styles.cardTitle}>💡 Quick Tips</Text>
           <View style={styles.tipsList}>
-            {globalStats.recommendations.nutritionalTips
+            {(globalStats.recommendations || [])
               .slice(0, 2)
-              .map(
-                (
-                  tip:
-                    | string
-                    | number
-                    | bigint
-                    | boolean
-                    | React.ReactElement<
-                        unknown,
-                        string | React.JSXElementConstructor<any>
-                      >
-                    | Iterable<React.ReactNode>
-                    | React.ReactPortal
-                    | Promise<
-                        | string
-                        | number
-                        | bigint
-                        | boolean
-                        | React.ReactPortal
-                        | React.ReactElement<
-                            unknown,
-                            string | React.JSXElementConstructor<any>
-                          >
-                        | Iterable<React.ReactNode>
-                        | null
-                        | undefined
-                      >
-                    | null
-                    | undefined,
-                  index: React.Key | null | undefined
-                ) => (
-                  <View key={index} style={styles.tipItem}>
-                    <Text style={styles.tipBullet}>•</Text>
-                    <Text style={styles.tipText}>{tip}</Text>
-                  </View>
-                )
-              )}
+              .map((tip: string, index: number) => (
+                <View key={index} style={styles.tipItem}>
+                  <Text style={styles.tipBullet}>•</Text>
+                  <Text style={styles.tipText}>{tip}</Text>
+                </View>
+              ))}
           </View>
         </View>
       </View>

@@ -29,7 +29,6 @@ const api = axios.create({
   },
   withCredentials: Platform.OS === "web", // Only enable credentials for web (cookies)
   maxRedirects: 3,
-  // Remove maxConcurrency, it's invalid here
 });
 
 // Request deduplication map

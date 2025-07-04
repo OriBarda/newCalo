@@ -11,6 +11,7 @@ import { calendarRoutes } from "./routes/calendar";
 import { deviceRoutes } from "./routes/devices";
 import { mealPlanRoutes } from "./routes/mealPlans";
 import statisticsRoutes from "./routes/statistics";
+import { prisma } from "./lib/database";
 import "./services/cron";
 
 // Load environment variables
@@ -22,6 +23,9 @@ const PORT = Number(process.env.PORT) || 5000;
 console.log("🚀 Starting server...");
 console.log("📊 Environment:", process.env.NODE_ENV || "development");
 console.log("🔌 Port:", PORT);
+
+// Make prisma available to routes
+app.locals.prisma = prisma;
 
 // Middleware
 app.use(helmet());
